@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+
+    <section id="upravy">
+        <h2>W, S, A, D moving. Arrows camera move</h2>
+        <hr width="50%">
+        <h2>rendering</h2>
+        <input type="radio" id="radioBarvy" name="vykreslovani" value="barvy" onclick="setVykreslovani(1)">
+        <label for="radioBarvy">Colors</label><br>
+        <input type="radio" id="radioStiny" name="vykreslovani" value="stiny" checked onclick="setVykreslovani(2)">
+        <label for="radioStiny">Shadows</label><br>
+        <input type="radio" id="radioMlha" name="vykreslovani" value="mlha" onclick="setVykreslovani(3)">
+        <label for="radioMlha">Fog</label>
+
+        <h2>Floor color</h2>
+        <input type="color" value="#550000" id="barvaPodlahy" onchange="setBarvaPodlahy()">
+        <h2>Cieling color</h2>
+        <input type="color" value="black" id="barvaStropu" onchange="setBarvaStropu()">
+
+        <h2>Surrounding</h2>
+        <section id="prostredi"></section>
+
+        <h2>FOV</h2>
+        <input type="number" id="fov" min="10" max="360" value="60" step="5" onchange="setFOV()">
+
+        <h2>Scale factor</h2>
+        <input type="number" id="scale" min="1" max="10000" value="500" onchange="setScale()">
+
+        <h2>Movement speed</h2>
+        <input type="number" id="rPohyb" min="0.01" max="100" value="5" onchange="setRPohyb()">
+    </section>
+</body>
+</html>
+
+<script src="script.js"></script>
+<script src="movement.js"></script>
+<script src="draw.js"></script>
+<script src="upravy.js"></script>

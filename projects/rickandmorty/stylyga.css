@@ -1,0 +1,53 @@
+
+.gallery {
+    margin: 10px;
+    margin-top: 30px;
+    border: 3px solid rgb(0, 0, 0);
+    float: left;
+    width: 250px;
+}
+  
+.gallery:hover {
+    border: 3px solid rgb(255, 255, 255);
+}
+  
+.gallery img {
+    width: 100%;
+    height: auto;
+}
+  
+.desc {
+    padding: 15px;
+    text-align: center;
+}
+
+.txt {
+    padding-bottom: 550px;
+}
+
+footer {
+    margin-top: 100px;
+}
+
+@media only screen and (max-width: 1289px){
+    .gallery {
+        width: 240px;
+    }
+}
+
+@media only screen and (max-width: 1249px){
+    .gallery {
+        width: 230px;
+    }
+}
+
+@media only screen and (max-width: 1209px){
+    .gallery {
+        width: 220px;
+    }
+}
+@media only screen and (max-width: 1169px){
+    .gallery {
+        width: 250px;
+    }
+}

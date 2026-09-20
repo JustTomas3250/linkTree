@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sand simulator</title>
+    <style>
+        body{
+            background-color: black;
+            display: grid;
+            grid-template-columns: auto auto auto;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #akce, main, #btn{
+            width: 33vw;
+            max-width: 33vw;
+        }
+
+        main{
+            width: fit-content;
+        }
+        
+        canvas{
+            border: 1px solid #0f0;
+            background-color: black;
+        }
+
+        #btn{
+            text-align: right;
+            padding: 10px;
+        }
+
+        button{
+            margin-bottom: 10px;
+            border: 1px solid #0f0;
+            background-color: transparent;
+            color: white;
+            font-size: 30px;
+            width: fit-content;
+            height: fit-content;
+        }
+
+        button:hover, .selected{
+            background-color: #0f0;
+            color: black;
+            cursor: pointer;
+        }
+
+        label{
+            color: white;
+            font-size: 30px;
+        }
+
+        input{
+            border: 1px solid #0f0;
+            background-color: transparent;
+            color: white;
+            font-size: 30px;
+            width: 150px;
+            height: fit-content;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <section id="btn">
+        <button id="pisek" class="selected" onclick="pisek()">Sand</button><br>
+        <button id="genP" onclick="genP()">Sand generator</button><br>
+        <button id="kamen" onclick="kamen()">Rock</button><br>
+        <button id="dira" onclick="dira()">Hole</button><br>
+        <button id="guma" onclick="guma()">Eraser</button>
+    </section>
+    <main>
+        <canvas id="canvas" width="500" height="500"></canvas>
+    </main>
+    <section id="akce">
+        <button id="clear" onclick="smazat()">Clear all</button><br>
+        <button id="podlaha" class="selected" onclick="podlahaF()">Floor</button><br>
+        <label for="velikost">Number of pixels:</label><br>
+        <input type="number" id="velikost" value="100" min="5" max="250"><br>
+        <label for="rychlost">Speed:</label><br>
+        <input type="number" id="rychlost" value="50" min="20" max="500"><br>
+        <label for="stetec">Stroke width:</label><br>
+        <input type="number" id="stetec" value="5" min="1" max="20">
+    </section>
+
+    <script>
+
+        const canvas = document.querySelector("#canvas");
+        const ctx = canvas.getContext("2d");
+
+        var X;
+        var Y;
+
+        var tick = 50;
+        var pocetPoli = 100;
+        var velikostStetce = 5;
+
+        var velikostTecky = 500 / pocetPoli;
+        var pole = Array(250).fill().map(() => Array(250).fill(0));
+        var polePristi = Array(250).fill().map(() => Array(250).fill(0));
+
+        var vykreslovani = setInterval(vykresli, tick);
+        var fyzikaInt = setInterval(fyzika, tick);
+        var spawnInt;
+
+        var selected = "P";
+        var podlaha = true;
+
+        document.querySelector("#velikost").addEventListener("input", function(){
+            let val = this.value;
+            if(this.value < 5)
+                val = 5;
+            if(this.value > 250)
+                val = 250;
+
+            //clearInterval(vykreslovani);
+            //clearInterval(fyzikaInt);
+
+            pocetPoli = val;
+            pole = Array(250).fill().map(() => Array(250).fill(0));
+            polePristi = Array(250).fill().map(() => Array(250).fill(0));
+            velikostTecky = 500 / pocetPoli;
+        });
+
+        document.querySelector("#rychlost").addEventListener("input", function(){
+            let val = this.value;
+            if(this.value < 20)
+                val = 20;
+            if(this.value > 500)
+                val = 500;
+
+            tick = val;
+
+            clearInterval(vykreslovani);
+            clearInterval(fyzikaInt);
+
+            vykreslovani = setInterval(vykresli, tick);
+            fyzikaInt = setInterval(fyzika, tick);
+        });
+
+        document.querySelector("#stetec").addEventListener("input", function(){
+            let val = this.value;
+            if(this.value < 1)
+                val = 1;
+            if(this.value > 20)
+                val = 20;
+
+            velikostStetce = val;
+        })
+
+        canvas.addEventListener("mousemove", function(e) { 
+            var cRect = canvas.getBoundingClientRect(); 
+            X = Math.round(e.clientX - cRect.left); 
+            if(X >= 500)
+                X = 499;
+            Y = Math.round(e.clientY - cRect.top);
+            if(Y >= 500)
+                Y = 499;
+        });
+
+        canvas.addEventListener("mousedown", function (e) {
+            spawnInt = setInterval(spawn, tick / 5);
+            //console.log("[" + parseInt(X / 10) + ", " + parseInt(Y / 10) + "] - x:" + X + ", y:" + Y)
+        }); 
+
+        canvas.addEventListener("mouseup", function (e) {
+            clearInterval(spawnInt);
+        });
+        
+        canvas.addEventListener("mouseleave", function (e) {
+            clearInterval(spawnInt);
+        });
+
+        function spawn(){
+            if(selected == "P"){
+                let posX = parseInt(X / velikostTecky);
+                let posY = parseInt(Y / velikostTecky);
+                let vel = parseInt(velikostStetce / 2);
+                if(velikostStetce == 1)
+                    pole[posX][posY] = 1;
+                for(let i = posX - vel; i < posX + vel; i++){
+                    for(let j = posY - vel; j < posY + vel; j++){
+                        if(Math.floor(Math.random() * velikostStetce * 2) == 0 && i >= 0 && j >= 0 && i < pocetPoli && j < pocetPoli)
+                            pole[i][j] = 1;
+                    }
+                }
+
+            }
+            else if(selected == "GP")
+                pole[parseInt(X / velikostTecky)][parseInt(Y / velikostTecky)] = 2;
+            else if(selected == "K")
+                pole[parseInt(X / velikostTecky)][parseInt(Y / velikostTecky)] = 3;
+            else if(selected == "D")
+                pole[parseInt(X / velikostTecky)][parseInt(Y / velikostTecky)] = 4;
+            else if(selected == "G")
+                pole[parseInt(X / velikostTecky)][parseInt(Y / velikostTecky)] = 0;
+        }
+
+        function fyzika(){
+            polePristi = Array(250).fill().map(() => Array(250).fill(0));
+            for(let i = pocetPoli - 1; i >= 0; i--){
+                for(let j = pocetPoli - 1; j >= 0; j--){
+                    if(pole[i][j] == 0)
+                        continue;
+
+                    if(pole[i][j] == 1){
+                        if(j >= pocetPoli - 1) {
+                            if(podlaha){
+                                //pole[i][j] = 0;
+                                polePristi[i][j] = 1;
+                            }
+                            continue;
+                        }
+    
+                        if(pole[i][j + 1] == 0){
+                            pole[i][j] = 0;
+                            polePristi[i][j + 1] = 1;
+                            continue;
+                        }
+
+                        if(pole[i][j + 1] == 4){
+                            pole[i][j] = 0;
+                            continue;
+                        }
+                        
+                        let r = Math.floor(Math.random() * 2);
+                        if(r == 0){
+                            if(!posunR(i, j))
+                                if(!posunL(i, j))
+                                    polePristi[i][j] = 1;
+                        }
+                        else{
+                            if(!posunL(i, j))
+                                if(!posunR(i, j))
+                                    polePristi[i][j] = 1;
+                        }
+                    }
+
+                    if(pole[i][j] == 3){
+                        polePristi[i][j] = 3;
+                    }
+
+                    if(pole[i][j] == 2){
+                        polePristi[i][j] = 2;
+                        if(j < pocetPoli - 1 && pole[i][j + 1] == 0)
+                            polePristi[i][j + 1] = 1;
+                        else{
+                            let r = Math.floor(Math.random() * 2);
+                            if(r == 0){
+                                if(i - 1 >= 0 && pole[i - 1][j] == 0)
+                                    polePristi[i - 1][j] = 1;
+                                else{
+                                    if(i < pocetPoli - 1 && pole[i + 1][j] == 0)
+                                        polePristi[i + 1][j] = 1;
+                                }
+                            }
+                            else{
+                                if(i < pocetPoli - 1 && pole[i + 1][j] == 0)
+                                        polePristi[i + 1][j] = 1;
+                                else{
+                                    if(i - 1 >= 0 && pole[i - 1][j] == 0)
+                                        polePristi[i - 1][j] = 1;
+                                }
+                            }
+                        }
+                    }
+
+                    if(pole[i][j] == 4)
+                        polePristi[i][j] = 4;
+                }
+            }
+            pole = Array(250).fill().map(() => Array(250).fill(0));
+            pole = polePristi;
+        }
+
+        function posunR(i, j){
+            if(i + 1 > pocetPoli - 1 || pole[i + 1][j + 1] != 0 || pole[i + 1][j] != 0)
+                return false;
+
+            //pole[i][j] = 0;
+            polePristi[i + 1][j + 1] = 1;
+            return true;
+        }
+
+        function posunL(i, j){
+            if(i - 1 < 0 || pole[i - 1][j + 1] != 0 || pole[i - 1][j] != 0)
+                return false;
+
+            //pole[i][j] = 0;
+            polePristi[i - 1][j + 1] = 1;
+            return true;
+        }
+
+        function vykresli(){
+            /*ctx.fillRect(4 * 10, 49 * 10, 10, 10);
+            ctx.fillStyle = "rgb(255 255 255)";*/
+
+            ctx.clearRect(0, 0, 500, 500);
+            for(let i = 0; i < pocetPoli; i++){
+                for(let j = 0; j < pocetPoli; j++){
+                    if(pole[i][j] == 1){
+                        ctx.fillStyle = "yellow";
+                        ctx.fillRect(i * velikostTecky, j * velikostTecky, velikostTecky, velikostTecky);
+                    }
+                    else if(pole[i][j] == 2){
+                        ctx.fillStyle = "red";
+                        ctx.fillRect(i * velikostTecky, j * velikostTecky, velikostTecky, velikostTecky);
+                    }
+                    else if(pole[i][j] == 3){
+                        ctx.fillStyle = "gray";
+                        ctx.fillRect(i * velikostTecky, j * velikostTecky, velikostTecky, velikostTecky);
+                    }
+                    else if(pole[i][j] == 4){
+                        ctx.fillStyle = "blue";
+                        ctx.fillRect(i * velikostTecky, j * velikostTecky, velikostTecky, velikostTecky);
+                    }
+                }
+            }
+        }
+
+        function clearSelected(){
+            document.querySelector("#pisek").setAttribute("class", "");
+            document.querySelector("#genP").setAttribute("class", "");
+            document.querySelector("#kamen").setAttribute("class", "");
+            document.querySelector("#guma").setAttribute("class", "");
+            document.querySelector("#dira").setAttribute("class", "");
+        }
+
+        function smazat(){
+            pole = Array(250).fill().map(() => Array(250).fill(0));
+        }
+
+        function podlahaF(){
+            podlaha = !podlaha;
+            if(podlaha)
+                document.querySelector("#podlaha").setAttribute("class", "selected");
+            else document.querySelector("#podlaha").setAttribute("class", "");
+        }
+
+        function pisek(){
+            clearSelected();
+            document.querySelector("#pisek").setAttribute("class", "selected");
+            selected = "P";
+        }
+
+        function genP(){
+            clearSelected();
+            document.querySelector("#genP").setAttribute("class", "selected");
+            selected = "GP";
+        }
+
+        function kamen(){
+            clearSelected();
+            document.querySelector("#kamen").setAttribute("class", "selected");
+            selected = "K";
+        }
+
+        function dira(){
+            clearSelected();
+            document.querySelector("#dira").setAttribute("class", "selected");
+            selected = "D";
+        }
+
+        function guma(){
+            clearSelected();
+            document.querySelector("#guma").setAttribute("class", "selected");
+            selected = "G";
+        }
+
+    </script>
+</body>
+</html>

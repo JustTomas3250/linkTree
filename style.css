@@ -9,6 +9,21 @@ h1{
     font-size: 50px;
 }
 
+h2{
+    font-size: 40px;
+}
+
+h3{
+    font-size: 20px;
+}
+
+hr{
+    width: 600px;
+    height: 3px;
+    background-color: white;
+    border-radius: 100px;
+}
+
 /*  NAV  */
 
 nav{
@@ -36,6 +51,16 @@ nav div{
     border-bottom-right-radius: 7px;
 }
 
+nav a{
+    color: white;
+}
+
+nav a:link{
+    text-decoration: inherit;
+    color: inherit;
+    cursor: auto;
+}
+
 nav div:hover{
     background-color: rgb(170, 170, 170);
     color: #000000;
@@ -50,11 +75,11 @@ nav div:hover{
 
 /*  SOCIAL MEDIA  */
 
-#socialMedia{
+#socialMediaSection{
     margin-top: 50px;
 }
 
-#socialMedia div{
+#socialMediaSection div{
     width: 300px;
     height: 100px;
     margin: auto;
@@ -66,21 +91,51 @@ nav div:hover{
     margin-bottom: 30px;
 }
 
-#socialMedia div:hover{
+#socialMediaSection div:hover{
     background-color: rgb(170, 170, 170);
 }
 
-#socialMedia div img{
+#socialMediaSection div img{
     width: 75px;
     height: 75px;
     margin-left: 15px;
 }
 
-#socialMedia div div{
+#socialMediaSection div div{
     display: inline;
     border: none;
 }
 
-#socialMedia h2{
-    height: 20px;
+/*  PROJECTS  */
+
+#projectsSection div{
+    width: 500px;
+    height: 150px;
+    margin: auto;
+    border: 3px solid white;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+#projectsSection div:hover{
+    background-color: rgb(170, 170, 170);
+}
+
+#projectsSection div img{
+    width: 125px;
+    height: 125px;
+    margin-left: 15px;
+}
+
+#projectsSection div div{
+    display: inline;
+    border: none;
+}
+
+.year{
+    text-decoration: underline;
+    font-size: 30px;
 }

@@ -1,0 +1,19 @@
+/*tabulka*/
+
+table, th, td {
+    text-align: center;
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+
+th, td {
+    padding: 4px;
+}
+
+th {
+    background-color: rgb(34, 34, 34);
+}
+
+.thd {
+    background-color: rgb(73, 73, 73);
+}

@@ -1,0 +1,159 @@
+@font-face{
+    font-family: "font1";
+    src: url("fonty/texgyreadventor-bold.otf");
+}
+
+*{
+    font-family: "font1";
+    font-size: 20px;
+    color: white;
+}
+
+body {
+    background-color: rgb(109, 107, 107);
+    padding: 0;
+    margin: 0;
+}
+
+/* Logo */
+
+.logo {
+    text-align: center;
+}
+
+.logo img {
+    width: 40%;
+    height: auto;
+    margin-bottom: 10%;
+}
+
+/* Navigace */
+
+nav{
+    position: fixed;
+    top: 5%;
+    right: 2%;
+}
+
+nav ul{
+    list-style-type: none;
+    display: none;
+    position: absolute;
+    padding: 0;
+    top: 20px;
+    right: 75px;
+}
+
+nav:hover ul{
+    display: block;
+}
+
+nav li a{
+    text-decoration: none;
+    color: #22A2BD;
+    transition: 0.3s;
+}
+
+nav li a:hover{
+    color: #8cecff;
+}
+
+nav li{
+    font-size: 20px;
+    padding: 5px 20px 10px 20px;
+    background-color: #0E2E2F;
+}
+
+nav img {
+    height: 75px;
+}
+
+.ted{
+    color: #135764;
+}
+
+.ted:hover{
+    color: #69afbd;
+}
+
+/* Text */
+
+h1{
+    text-align: center;
+    font-size: 60px;
+}
+
+h2 {
+    text-align: left;
+    margin-left: 250px;
+    font-size: 35px;
+}
+
+p{
+    text-align: justify;
+}
+
+.txt {
+    margin: 0 60px 0 60px;
+    padding: 0 30px 20px 30px;
+    border: 3px solid black;
+    border-radius: 50px;
+}
+
+hr {
+    border: 7px solid black;
+}
+
+/* footer */
+
+footer {
+    background-color: rgba(0,0,0,0.75);
+    width: 100%;
+    height: 100px;
+    margin-bottom: 0vw;
+    padding-top: 1vw;
+}
+
+footer p{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    text-align: center;
+    margin-top: 3px;
+}
+
+.jmeno {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    margin-top: 3px;
+}
+
+/* res */
+
+@media only screen and (max-width: 1000px){
+    .logo img{
+        width: 50%;
+    }
+}
+@media only screen and (max-width: 700px){
+    *{
+        font-size: 15px;
+    }
+    .logo img{
+        width: 70%;
+    }
+    h1{
+        font-size: 40px;
+    }
+    h2{
+        font-size: 20px;
+    }
+    .txt {
+        margin: 0 20px 0 20px;
+        padding: 0 10px 5px 10px;
+    }
+}

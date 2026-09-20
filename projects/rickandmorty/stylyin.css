@@ -1,0 +1,71 @@
+
+/*tabulka*/
+
+table, th, td {
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.radius1 {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.radius2 {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.radius3 {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.radius4 {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+  
+tr:nth-child(even) {
+    background-color: rgba(46, 46, 46, 0.4);
+}
+  
+th:nth-child(even),td:nth-child(even) {
+    background-color: rgba(46, 46, 46, 0.4);
+}
+
+.port {
+    height: 125px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+/* hr */
+
+hr {
+    border: 1px solid black;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+/* ul */
+
+.postavy li {
+    list-style-type: square;
+    margin-left: 60px;
+}
+
+.postavy li p {
+    margin: 0;
+    margin-left: 50px;
+}
+
+/* img */
+
+.txtimg {
+    float: right;
+    width: 50%;
+    height: auto;
+    margin: 10px;
+    border-radius: 10px;
+}
