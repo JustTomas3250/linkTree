@@ -139,3 +139,24 @@ nav div:hover{
     text-decoration: underline;
     font-size: 30px;
 }
+
+@media screen and (max-width: 600px) {
+    /*hr{
+        width: 100%;
+    }
+
+    #projectsSection div{
+        width: 300px;
+        height: 200px;
+    }
+
+    #projectsSection div img{
+        width: 100px;
+        height: 100px;
+        margin-left: 15px;
+    }*/
+
+    nav, #projects, #projectsSection{
+        display: none;
+    }
+}
