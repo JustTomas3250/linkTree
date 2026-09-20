@@ -4,3 +4,83 @@ body{
     color: white;
     text-align: center;
 }
+
+h1{
+    font-size: 50px;
+}
+
+/*  NAV  */
+
+nav{
+    width: fit-content;
+    height: fit-content;
+    border: 3px solid white;
+    border-radius: 10px;
+    display: flex;
+    margin: auto;
+}
+
+nav div{
+    padding: 8px;
+    font-size: 20px;
+}
+
+.navLeft{
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border-right: 3px solid white;
+}
+
+.navRight{
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+
+nav div:hover{
+    background-color: rgb(170, 170, 170);
+    color: #000000;
+    cursor: pointer;
+}
+
+#navActive{
+    background-color: white;
+    color: #454545;
+    cursor: default;
+}
+
+/*  SOCIAL MEDIA  */
+
+#socialMedia{
+    margin-top: 50px;
+}
+
+#socialMedia div{
+    width: 300px;
+    height: 100px;
+    margin: auto;
+    border: 3px solid white;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+#socialMedia div:hover{
+    background-color: rgb(170, 170, 170);
+}
+
+#socialMedia div img{
+    width: 75px;
+    height: 75px;
+    margin-left: 15px;
+}
+
+#socialMedia div div{
+    display: inline;
+    border: none;
+}
+
+#socialMedia h2{
+    height: 20px;
+}

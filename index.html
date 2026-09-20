@@ -7,7 +7,55 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Link Tree</h1>
-    <h2>Tomáš Martínek</h2>
+    <script>
+        function openWindow(url){
+            window.open(url, '_blank').focus()
+        }
+    </script>
+
+    <h1>Tomáš Martínek</h1>
+
+    <nav>
+        <div class="navLeft" id="navActive">Social media</div>
+        <div class="navRight">Projects</div>
+    </nav>
+
+    <main id="socialMedia">
+        <div onclick='openWindow("https://www.instagram.com/nevimvymysletesineco/")'>
+            <img src="Images/instagram.png">
+            <div>
+                <h2>Instagram</h2>
+                <p>nevimvymysletesineco</p>
+            </div>
+        </div>
+        <div onclick='openWindow("https://discord.com/users/694943397550620702")'>
+            <img src="Images/discord.png">
+            <div>
+                <h2>Discord</h2>
+                <p>prostetomass</p>
+            </div>
+        </div>
+        <div onclick='openWindow("https://open.spotify.com/user/lygq5uqubge9qfgifj0ws28qi?si=69f119fe306c4923")'>
+            <img src="Images/spotify.png">
+            <div>
+                <h2>Spotify</h2>
+                <p>Tomáš</p>
+            </div>
+        </div>
+        <div onclick='openWindow("https://www.tiktok.com/@nevimvymysletesineco?is_from_webapp=1&sender_device=pc")'>
+            <img src="Images/tiktok.png">
+            <div>
+                <h2>TikTok</h2>
+                <p>ProsteTomas</p>
+            </div>
+        </div>
+        <div onclick='openWindow("https://www.youtube.com/@ProsteTomasss")'>
+            <img src="Images/youtube.png">
+            <div>
+                <h2>Youtube</h2>
+                <p>ProsteTomas</p>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
